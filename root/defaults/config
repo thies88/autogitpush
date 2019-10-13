@@ -1,0 +1,2 @@
+Host github.com
+    IdentityFile /config/.ssh/id_rsa

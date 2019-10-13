@@ -1,0 +1,51 @@
+#!/usr/bin/with-contenv bash
+
+#vars
+#gitfolder="/opt/git"
+#gitrepo="docker-baseimage-alpine"
+#giturl="https://github.com/thies88/docker-baseimage-alpine"
+
+#keygen
+#cat /dev/zero | ssh-keygen -q -N ""
+if [ ! -f "/config/.ssh/id_rsa.pub" ]; then 
+	mkdir -p $gitfolder /config/.ssh
+	chmod -R 770 $gitfolder
+	chown -R root:abc $gitfolder
+	cat /dev/zero | ssh-keygen -q -N "" -t rsa -b 4096 -f /config/.ssh/id_rsa
+	#cat /dev/zero | ssh-keygen -q -N ""
+	cat /config/.ssh/id_rsa.pub > /config/ssh-key.txt
+else
+	echo "---id_rsa.pub found !---"
+fi
+
+echo "---pre-install ---"
+if [ ! -f $gitfolder/$gitrepo/weeklybuild.txt ]; then
+	mkdir -p /opt/git
+	chmod -R 770 $gitfolder
+	chown -R root:abc $gitfolder
+	cd $gitfolder || exit
+	echo "---Cloning from: $giturl please wait---"
+	git clone --quiet $giturl > /dev/null
+	cd $gitrepo || exit
+	#set git info
+	git config --global user.name $gituser
+	git config --global user.email $gituser
+	#start ssh-agent
+	eval 'ssh-agent -s'
+	ssh-add /config/.ssh/id_rsa
+	#get fingerprint for github.com
+	ssh-keyscan -t rsa github.com | tee github-key-temp | ssh-keygen -lf -
+	#add fingerprint to known hosts file
+	cat github-key-temp >> /config/.ssh/known_hosts
+	cp /defaults/config /config/.ssh
+	git remote rm origin
+	git remote add origin git@github.com:$gituser/$gitrepo.git
+	echo done !
+else
+	echo "---weeklybuild.txt (git repo) found !---"
+fi
+
+#copy persistant ssh config and files so we survive reboots and container updates
+echo "copy persistant ssh config and files so we survive reboots and container updates"
+cp -R /config/.ssh ~/.ssh
+

@@ -5,9 +5,6 @@
 #gitrepo="docker-baseimage-alpine"
 #giturl="https://github.com/thies88/docker-baseimage-alpine"
 
-#Set permission
-chmod +x /opt/script.sh
-
 #keygen
 #cat /dev/zero | ssh-keygen -q -N ""
 if [ ! -f "/config/.ssh/id_rsa.pub" ]; then 

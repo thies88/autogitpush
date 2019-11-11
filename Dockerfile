@@ -16,7 +16,7 @@ ENV giturl="https://github.com/thies88/docker-baseimage-alpine"
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * * command to execute
-ENV croninterval="0 3 * * Sun"
+ENV croninterval="0 3 * * 6"
 
 RUN apk update
 RUN apk add --no-cache git openssh openssh-keygen

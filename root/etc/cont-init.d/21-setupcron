@@ -3,6 +3,11 @@
 #set permission
 chmod +x /opt/script.sh
 
-echo "---setup cron---"
-echo "$croninterval /opt/script.sh" >> /etc/crontabs/root
+#check if cron interval is set. Add cron interval if not set. Dont add if is set already
+if grep -q script.sh /etc/crontabs/root; then
+  echo "Interval already set skipping...."
+else
+  echo "---setup cron---"
+  echo "$croninterval /opt/script.sh" >> /etc/crontabs/root
+fi
 

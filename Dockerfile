@@ -4,7 +4,7 @@ MAINTAINER thies88
 
 ENV gituser="example"
 ENV gitfolder="/opt/git"
-ENV gitrepo="docker-baseimage-alpine"
+ENV gitrepo="example"
 ENV giturl="https://github.com/example/example"
 
 # ┌───────────── minute (0 - 59)

@@ -2,10 +2,10 @@ FROM thies88/base-alpine
 
 MAINTAINER thies88
 
-ENV gituser="thies88"
+ENV gituser="example"
 ENV gitfolder="/opt/git"
 ENV gitrepo="docker-baseimage-alpine"
-ENV giturl="https://github.com/thies88/docker-baseimage-alpine"
+ENV giturl="https://github.com/example/example"
 
 # ┌───────────── minute (0 - 59)
 # │ ┌───────────── hour (0 - 23)

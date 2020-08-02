@@ -1,11 +1,16 @@
 #!/usr/bin/with-contenv bash
 
-cd $gitfolder/$gitrepo || exit
+cd $gitfolder
 
-date >> $gitfolder/$gitrepo/weeklybuild.txt
-git commit -a -m "Update image"
+#for each folder in $gitfolder do
+for image in * ; do
 
-git push origin master
-#origin/master
+  cd $gitfolder/$image || exit
 
+  date >> $gitfolder/$image/weeklybuild.txt
+  git commit -a -m "Update image"
+
+  git push origin master
+  #origin/master
+done
 

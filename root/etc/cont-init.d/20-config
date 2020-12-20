@@ -42,6 +42,6 @@ else
 fi
 
 #copy persistant ssh config and files so we survive reboots and container updates
-echo "copy persistant ssh config and files to ~/.ssh..."
-cp -R /config/.ssh ~/.ssh
+#echo "copy persistant ssh config and files to ~/.ssh..."
+#cp -R /config/.ssh ~/.ssh
 

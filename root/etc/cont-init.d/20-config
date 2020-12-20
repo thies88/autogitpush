@@ -3,7 +3,8 @@
 #keygen
 #cat /dev/zero | ssh-keygen -q -N ""
 if [ ! -f "/config/.ssh/id_rsa.pub" ]; then 
-	mkdir -p $gitfolder /config/.ssh
+	mkdir -p $gitfolder 
+	mkdir -p /config/.ssh
 	chmod -R 770 $gitfolder
 	chown -R root:abc $gitfolder
 	cat /dev/zero | ssh-keygen -q -N "" -t rsa -b 4096 -f /config/.ssh/id_rsa
@@ -32,7 +33,7 @@ if [ ! -f $gitfolder/$gitrepo/weeklybuild.txt ]; then
 	ssh-keyscan -t rsa github.com | tee github-key-temp | ssh-keygen -lf -
 	#add fingerprint to known hosts file
 	cat github-key-temp >> /config/.ssh/known_hosts
-	cp /defaults/config /config/.ssh
+	cp /defaults/config /config/.ssh/config
 	git remote rm origin
 	git remote add origin git@github.com:$gituser/$gitrepo.git
 	echo done !
@@ -41,6 +42,6 @@ else
 fi
 
 #copy persistant ssh config and files so we survive reboots and container updates
-echo "copy persistant ssh config and files so we survive reboots and container updates"
+echo "copy persistant ssh config and files to ~/.ssh..."
 cp -R /config/.ssh ~/.ssh
 

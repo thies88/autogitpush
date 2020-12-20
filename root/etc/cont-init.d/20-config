@@ -27,7 +27,8 @@ if [ ! -f $gitfolder/$gitrepo/weeklybuild.txt ]; then
 	git config --global user.name $gituser
 	git config --global user.email $gituser
 	#start ssh-agent
-	eval 'ssh-agent -s'
+	#eval 'ssh-agent -s' --deprecated
+	exec ssh-agent bash
 	ssh-add /config/.ssh/id_rsa
 	#get fingerprint for github.com
 	ssh-keyscan -t rsa github.com | tee github-key-temp | ssh-keygen -lf -

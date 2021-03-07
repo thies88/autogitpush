@@ -2,6 +2,8 @@ FROM thies88/base-alpine
 
 MAINTAINER thies88
 
+ENV HOME=/config
+
 ENV gituser="example"
 ENV gitfolder="/opt/git"
 ENV gitrepo="example"
